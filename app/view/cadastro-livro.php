@@ -31,9 +31,9 @@
 
         <label for="desp">Disponibilidade</label>
         <input type="text" id="disp" name="disp">
-    </form>
 
-    <button name="REQUEST_METHOD" type="submit">Cadastrar</button>
+        <button name="REQUEST_METHOD" type="submit">Cadastrar</button>
+    </form>
     
 </body>
 </html>
