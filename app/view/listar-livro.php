@@ -49,7 +49,7 @@ $livros = $objLivro->buscar();
                                 <td><?= htmlspecialchars($livro['versao'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($livro['disponibilidade'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($livro['Opções'] ?? '') ?>
-                                    <a href="editar-livro.php">EDITAR</a>
+                                    <a href="editar-livro.php?id=<?= $livro['id_livro']?>">EDITAR</a>
                                 </td>
                             </tr>
                     <?php 

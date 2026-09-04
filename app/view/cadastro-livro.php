@@ -36,10 +36,9 @@
             <option value="disponivel">Disponivel</option>
             <option value="indisponivel">Indisponivel</option>
         </select>
+        <button type="submit">Cadastrar</button>
+        <button type="reset">LIMPAR</button>
     </form>
-
-    <button type="submit">Cadastrar</button>
-    <button type="reset">LIMPAR</button>
     
 </body>
 </html>

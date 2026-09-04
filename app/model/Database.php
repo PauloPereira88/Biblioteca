@@ -80,26 +80,12 @@ class Database {
     }
 
     public function update($data) {
-        $pk = 'id_' . $this->table;
-        
-        if (!isset($data[$pk])) {
-            return false; 
-        }
-
-        $id_valor = $data[$pk];
-        unset($data[$pk]); 
-
+        $id = array_shift($data);
         $fields = array_keys($data);
-        
-        $set = implode('=?, ', $fields) . '=?';
 
-        $query = "UPDATE " . $this->table . " SET " . $set . " WHERE " . $pk . " = ?";
-        
-        $valores = array_values($data);
-        $valores[] = $id_valor;
-
-        $res = $this->execute($query, $valores);
-        return $res ? true : false;
+        $query = "UPDATE " . $this->table . ' SET ' . implode('=?,', $fields) . '=? WHERE id_'.$this->table.'='.$id;
+        $res = $this->execute($query, array_values($data));
+        return $res;
     }
 
     public function delete($id_tratado) {
