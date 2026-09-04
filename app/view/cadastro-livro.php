@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro de Livros</title>
 </head>
 <body>
 
-    <form action="#" method="POST">
+    <h1>Cadastro de Livros</h1>
+    
+    <form action="../actions/cadastro-livro.php" method="POST">
         <label for="titulo">Titulo</label>
         <input type="text" id="titulo" name="titulo" placeholder="Digite o Titulo">
 
@@ -24,16 +26,20 @@
         <input type="text" id="categoria" name="categoria" placeholder="Digite a categoria">
 
         <label for="pagina">Paginas</label>
-        <input type="text" id="pagina" name="pagina">
+        <input type="number" id="paginas" name="paginas">
 
         <label for="versao">Versão</label>
-        <input type="text" id="versao" name="varsao">
+        <input type="text" id="versao" name="versao">
 
-        <label for="desp">Disponibilidade</label>
-        <input type="text" id="disp" name="disp">
-
-        <button name="REQUEST_METHOD" type="submit">Cadastrar</button>
+        <label for="desponibilidade">Disponibilidade</label>
+        <select name="disponibilidade" id="disponibilidade">
+            <option value="disponivel">Disponivel</option>
+            <option value="indisponivel">Indisponivel</option>
+        </select>
     </form>
+
+    <button type="submit">Cadastrar</button>
+    <button type="reset">LIMPAR</button>
     
 </body>
 </html>

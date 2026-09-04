@@ -38,7 +38,7 @@ class Database {
         $query = "SELECT " . $fields . " FROM " . $this->table . ";";
         $res = $this->execute($query);
 
-        $dados = $res->fetchall(\PDO::FETCH_ASSOC);
+        $dados = $res->fetchAll(\PDO::FETCH_ASSOC);
         return $dados;
     }
 
@@ -47,16 +47,16 @@ class Database {
             $fields = array_keys($values);
             $params = array_pad([], count($fields), '?');
 
-            $query = 'INSERT INTO '.$this->table. ' (' . implode(',', $fields) . ') VALUES ('. IMPLODE(',', $params). ')';
+            $query = 'INSERT INTO '.$this->table. ' (' . implode(',', $fields) . ') VALUES ('. implode(',', $params). ')';
             $res = $this->execute($query, array_values($values));
-            return $res;
+            return $res ? true : false;
         } catch (\Throwable $th) {
             return false;
         }
     }
 
     public function select_one_with_where($where = "", $fields = "*") {
-        $query = "SELECT {$fileds} FROM {$this->table}";
+        $query = "SELECT {$fields} FROM {$this->table}";
         if (!empty($where)) {
             $query .= " WHERE {$where}";
         }
@@ -65,28 +65,41 @@ class Database {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function select_all_with_where($where = "", $fileds = "*") {
+    public function select_all_with_where($where = "", $fields = "*") {
         try {
             $query = "SELECT {$fields} FROM {$this->table}";
             if (!empty($where)) {
                 $query .= " WHERE {$where}";
             }
             $query .= ";";
-            $stmt = $this->conn->query($query);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $this->execute($query);
+            return $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function update($where, $values) {
-        $fields = array_keys($values);
-        $params = array_values($values);
+    public function update($data) {
+        $pk = 'id_' . $this->table;
+        
+        if (!isset($data[$pk])) {
+            return false; 
+        }
 
-        $query = "UPDATE ".$this->table. ' SET '.implode('=?,',$fields) . '=? WHERE '.$where;
-        print_r($query);
-        $res = $this->execute($query, $params);
-        return $res;
+        $id_valor = $data[$pk];
+        unset($data[$pk]); 
+
+        $fields = array_keys($data);
+        
+        $set = implode('=?, ', $fields) . '=?';
+
+        $query = "UPDATE " . $this->table . " SET " . $set . " WHERE " . $pk . " = ?";
+        
+        $valores = array_values($data);
+        $valores[] = $id_valor;
+
+        $res = $this->execute($query, $valores);
+        return $res ? true : false;
     }
 
     public function delete($id_tratado) {

@@ -1,39 +1,66 @@
+<?php
+
+require_once "../controller/Livro.php";
+
+$objLivro = new Livro();
+$livros = $objLivro->buscar();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Listagem de Livros</title>
 </head>
 <body>
 
-    <form action="#" method="POST">
-        <label for="titulo">Titulo</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Digite o Titulo">
+    <h1>Listagem de Livros</h1>
 
-        <label for="isbn">ISBN</label>
-        <input type="text" id="isbn" name="isbn">
-
-        <label for="autor">Autor</label>
-        <input type="text" id="autor" name="autor" placeholder="Digite o Nome do Autor">
-
-        <label for="editora">Editora</label>
-        <input type="text" id="editora" name="editora" placeholder="Digite a Editora">
-
-        <label for="categoria">Categoria</label>
-        <input type="text" id="categoria" name="categoria" placeholder="Digite a categoria">
-
-        <label for="pagina">Paginas</label>
-        <input type="text" id="pagina" name="pagina">
-
-        <label for="versao">Versão</label>
-        <input type="text" id="versao" name="varsao">
-
-        <label for="desp">Disponibilidade</label>
-        <input type="text" id="disp" name="disp">
-    </form>
-
-    <button type="submit">Atualizar</button>
+    <section>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>ISBN</th>
+                        <th>Autor</th>
+                        <th>Editora</th>
+                        <th>Categoria</th>
+                        <th>Paginas</th>
+                        <th>Versao</th>
+                        <th>Disponibilidade</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTable">
+                    <?php 
+                    if (is_array($livros) && count($livros) > 0): 
+                        foreach ($livros as $livro): 
+                    ?>
+                            <tr>
+                                <td><?= htmlspecialchars($livro['titulo'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['isbn'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['autor'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['editora'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['categoria'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['paginas'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['versao'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['disponibilidade'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($livro['Opções'] ?? '') ?>
+                                    <a href="editar-livro.php">EDITAR</a>
+                                </td>
+                            </tr>
+                    <?php 
+                        endforeach; 
+                    else: 
+                    ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
     
 </body>
 </html>

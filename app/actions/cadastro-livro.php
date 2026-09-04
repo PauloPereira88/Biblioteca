@@ -1,6 +1,6 @@
 <?php
 
-require '../controller/cadastro-livro.php';
+require '../controller/Livro.php';
 
 if($_SERVER["REQUEST_METHOD"] === 'POST') {
     $titulo = $_POST['titulo'] ?? '';
@@ -8,9 +8,9 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
     $autor = $_POST['autor'] ?? '';
     $editora = $_POST['editora'] ?? '';
     $categoria = $_POST['categoria'] ?? '';
-    $pagina = $_POST['pagina'] ?? '';
+    $paginas = $_POST['paginas'] ?? '';
     $versao = $_POST['versao'] ?? '';
-    $disp = $_POST['disp'] ?? '';
+    $disponibilidade = $_POST['disponibilidade'] ?? '';
 
     $objLivro = new Livro();
     $objLivro->titulo = $titulo;
@@ -18,13 +18,15 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
     $objLivro->autor = $autor;
     $objLivro->editora = $editora;
     $objLivro->categoria = $categoria;
-    $objLivro->pagina = $pagina;
+    $objLivro->paginas = $paginas;
     $objLivro->versao = $versao;
-    $objLivro->disp = $disp;
+    $objLivro->disponibilidade = $disponibilidade;
 
     $res = $objLivro->cadastrar();
     if ($res === true) {
-        echo 'Cadastrado com Sucesso!'
+        echo 'Livro Cadastrado com Sucesso!';
+    } else {
+        echo 'Livro não Cadastrado!';
     }
  
 }

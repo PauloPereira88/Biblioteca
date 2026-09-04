@@ -8,7 +8,8 @@ CREATE TABLE livro (
     autor varchar (100) not null,
     editora varchar (150) not null,
     categoria varchar (150) not null,
-    paginas varchar (30) not null,
+    paginas int not null,
     versao varchar (150) not null,
-    disponibilidade tinyint
+    disponibilidade TINYINT(1) DEFAULT 1,
+    PRIMARY KEY (id_livro)
 );
